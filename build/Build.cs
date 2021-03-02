@@ -8,6 +8,7 @@ using Nuke.Common.IO;
 using Nuke.Common.ProjectModel;
 using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
+using Nuke.Common.Tools.GitVersion;
 using Nuke.Common.Utilities.Collections;
 using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
@@ -23,43 +24,58 @@ class Build : NukeBuild
     ///   - JetBrains Rider            https://nuke.build/rider
     ///   - Microsoft VisualStudio     https://nuke.build/visualstudio
     ///   - Microsoft VSCode           https://nuke.build/vscode
-
-    public static int Main () => Execute<Build>(x => x.Compile);
+    public static int Main() => Execute<Build>(x => x.Compile);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Solution] readonly Solution Solution;
+    [Solution]      readonly Solution      Solution;
     [GitRepository] readonly GitRepository GitRepository;
+    [GitVersion]    readonly GitVersion    GitVersion;
 
-    AbsolutePath SourceDirectory => RootDirectory / "src";
-    AbsolutePath TestsDirectory => RootDirectory / "test";
+    AbsolutePath SourceDirectory    => RootDirectory / "src";
+    AbsolutePath TestsDirectory     => RootDirectory / "test";
     AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
 
     Target Clean => _ => _
-        .Before(Restore)
-        .Executes(() =>
-        {
-            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
-            EnsureCleanDirectory(ArtifactsDirectory);
-        });
+                         .Before(Restore)
+                         .Executes(() =>
+                         {
+                             SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
+                             TestsDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
+                             EnsureCleanDirectory(ArtifactsDirectory);
+                         });
 
     Target Restore => _ => _
         .Executes(() =>
         {
             DotNetRestore(s => s
-                .SetProjectFile(Solution));
+                              .SetProjectFile(Solution));
         });
 
     Target Compile => _ => _
-        .DependsOn(Restore)
-        .Executes(() =>
-        {
-            DotNetBuild(s => s
-                .SetProjectFile(Solution)
-                .SetConfiguration(Configuration)
-                .EnableNoRestore());
-        });
+                           .DependsOn(Restore)
+                           .Executes(() =>
+                           {
+                               DotNetBuild(s => s
+                                                .SetProjectFile(Solution)
+                                                .SetConfiguration(Configuration)
+                                                .EnableNoRestore());
+                           });
 
+    Target Pack => _ => _
+                        .DependsOn(Compile)
+                        .Executes(() =>
+                        {
+                            DotNetPack(s => s
+                                            .SetProject(Solution.GetProject("Wangkanai.Validation"))
+                                            .SetConfiguration(Configuration)
+                                            .EnableNoBuild()
+                                            .EnableNoRestore()
+                                            .SetDescription("Wangkanai .NET validation library")
+                                            .SetPackageTags("validation")
+                                            .SetVersion(GitVersion.NuGetVersionV2)
+                                            .SetNoDependencies(true)
+                                            .SetOutputDirectory(ArtifactsDirectory));
+                        });
 }

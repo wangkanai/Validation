@@ -1,0 +1,11 @@
+<Project>
+    <PropertyGroup>
+        <Description>Wangkanai .NET validation library</Description>
+        <Authors>Sarin Na Wangkanai</Authors>
+        <RepositoryUrl>https://github.com/wangkanai/Validation</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/wangkanai/Validation</PackageProjectUrl>
+        <PackageLicense>https://github.com/wangkanai/Validation/blob/main/LICENSE</PackageLicense>
+        <VersionPrefix>0.0.1</VersionPrefix>
+        <VersionSuffix>alpha</VersionSuffix>
+    </PropertyGroup>
+</Project>
