@@ -2,9 +2,19 @@
     <PropertyGroup>
         <Description>Wangkanai .NET validation library</Description>
         <Authors>Sarin Na Wangkanai</Authors>
-        <RepositoryUrl>https://github.com/wangkanai/Validation</RepositoryUrl>
+        <Copyright>©2014-2021 Sarin Na Wangkanai, All rights reserved</Copyright>
+        
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>git://github.com/wangkanai/validation</RepositoryUrl>
+        
         <PackageProjectUrl>https://github.com/wangkanai/Validation</PackageProjectUrl>
         <PackageLicense>https://github.com/wangkanai/Validation/blob/main/LICENSE</PackageLicense>
         <VersionPrefix>0.0.2</VersionPrefix>
+
+        <PackageIcon>wangkanai-logo.png</PackageIcon>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\asset\wangkanai-logo.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
 </Project>
