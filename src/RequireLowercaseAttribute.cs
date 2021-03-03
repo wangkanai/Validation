@@ -7,7 +7,7 @@ namespace System.ComponentModel.DataAnnotations
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter, AllowMultiple = false)]
     public class RequireLowercaseAttribute : ValidationAttribute
     {
-        public RequireLowercaseAttribute() 
+        public RequireLowercaseAttribute()
             : base(() => "Lowercase is required")
         {
         }
