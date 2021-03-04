@@ -11,11 +11,11 @@ namespace Wangkanai.Validation.Tests
     public class RequireUniqueTests
     {
         private readonly ITestOutputHelper _output;
-        private readonly PropertyInfo      _password = RegisterViewModel.GetProperty(nameof(RegisterViewModel.Password));
-        private readonly PropertyInfo      _unique1  = RegisterViewModel.GetProperty(nameof(RegisterViewModel.Unique1));
-        private readonly PropertyInfo      _unique2  = RegisterViewModel.GetProperty(nameof(RegisterViewModel.Unique2));
-        private readonly PropertyInfo      _unique3  = RegisterViewModel.GetProperty(nameof(RegisterViewModel.Unique3));
-        private readonly PropertyInfo      _unique4  = RegisterViewModel.GetProperty(nameof(RegisterViewModel.Unique4));
+
+        private readonly PropertyInfo _unique1 = BaseModel.GetProperty<UniqueModel>(nameof(UniqueModel.Unique1));
+        private readonly PropertyInfo _unique2 = BaseModel.GetProperty<UniqueModel>(nameof(UniqueModel.Unique2));
+        private readonly PropertyInfo _unique3 = BaseModel.GetProperty<UniqueModel>(nameof(UniqueModel.Unique3));
+        private readonly PropertyInfo _unique4 = BaseModel.GetProperty<UniqueModel>(nameof(UniqueModel.Unique4));
 
         public RequireUniqueTests(ITestOutputHelper output)
         {
@@ -26,19 +26,20 @@ namespace Wangkanai.Validation.Tests
         [MemberData(nameof(Data))]
         public void OneFromSix(string value, int unique)
         {
-            var vm = new RegisterViewModel {Unique1 = value};
+            var vm = new UniqueModel {Unique1 = value};
 
             var validations = vm.Validate(vm.Unique1, _unique1);
             validations.Print(_output);
 
             Assert.Empty(validations);
+            Assert.True(unique > 0);
         }
 
         [Theory]
         [MemberData(nameof(Data))]
         public void TwoFromSix(string value, int unique)
         {
-            var vm = new RegisterViewModel {Unique2 = value};
+            var vm = new UniqueModel {Unique2 = value};
 
             var validations = vm.Validate(vm.Unique2, _unique2);
             validations.Print(_output);
@@ -54,7 +55,7 @@ namespace Wangkanai.Validation.Tests
         [MemberData(nameof(Data))]
         public void ThreeFromSix(string value, int unique)
         {
-            var vm = new RegisterViewModel {Unique3 = value};
+            var vm = new UniqueModel {Unique3 = value};
 
             var validations = vm.Validate(vm.Unique3, _unique3);
             validations.Print(_output);
@@ -70,7 +71,7 @@ namespace Wangkanai.Validation.Tests
         [MemberData(nameof(Data))]
         public void FourFromSix(string value, int unique)
         {
-            var vm = new RegisterViewModel {Unique4 = value};
+            var vm = new UniqueModel {Unique4 = value};
 
             var validations = vm.Validate(vm.Unique4, _unique4);
             validations.Print(_output);

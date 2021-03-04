@@ -13,6 +13,8 @@ namespace Wangkanai.Validation.Tests
     public class RequireBooleanTests
     {
         private readonly ITestOutputHelper _output;
+        private readonly PropertyInfo      _wannaTrue  = BaseModel.GetProperty<BooleanModel>(nameof(BooleanModel.WannaTrue));
+        private readonly PropertyInfo      _wannaFalse = BaseModel.GetProperty<BooleanModel>(nameof(BooleanModel.WannaFalse));
 
         public RequireBooleanTests(ITestOutputHelper output)
         {
@@ -22,13 +24,9 @@ namespace Wangkanai.Validation.Tests
         [Fact]
         public void ExpectedTrue_ActualTrue()
         {
-            var vm = new RegisterViewModel
-            {
-                WannaTrue = true
-            };
+            var vm = new BooleanModel {WannaTrue = true};
 
-            var property    = RegisterViewModel.GetProperty(nameof(RegisterViewModel.WannaTrue));
-            var validations = vm.Validate(vm.WannaTrue, property);
+            var validations = vm.Validate(vm.WannaTrue, _wannaTrue);
             validations.Print(_output);
 
             Assert.Empty(validations);
@@ -37,12 +35,9 @@ namespace Wangkanai.Validation.Tests
         [Fact]
         public void ExpectedTrue_ActualFalse()
         {
-            var vm = new RegisterViewModel
-            {
-                WannaTrue = false
-            };
-            var property    = RegisterViewModel.GetProperty(nameof(RegisterViewModel.WannaTrue));
-            var validations = vm.Validate(vm.WannaTrue, property);
+            var vm = new BooleanModel {WannaTrue = false};
+
+            var validations = vm.Validate(vm.WannaTrue, _wannaTrue);
             validations.Print(_output);
 
             Assert.Collection(validations, v =>
@@ -52,28 +47,21 @@ namespace Wangkanai.Validation.Tests
         [Fact]
         public void ExpectedFalse_ActualTrue()
         {
-            var vm = new RegisterViewModel
-            {
-                WannaFalse = true
-            };
-
-            var property    = RegisterViewModel.GetProperty(nameof(RegisterViewModel.WannaFalse));
-            var validations = vm.Validate(vm.WannaFalse, property);
+            var vm = new BooleanModel {WannaFalse = true};
+            
+            var validations = vm.Validate(vm.WannaFalse, _wannaFalse);
             validations.Print(_output);
 
-            Assert.Collection(validations, v => 
+            Assert.Collection(validations, v =>
                                   v.ErrorMessage = "Unchecked is required");
         }
 
         [Fact]
         public void ExpectedFalse_ActualFalse()
         {
-            var vm = new RegisterViewModel
-            {
-                WannaFalse = false
-            };
-            var property    = RegisterViewModel.GetProperty(nameof(RegisterViewModel.WannaFalse));
-            var validations = vm.Validate(vm.WannaFalse, property);
+            var vm          = new BooleanModel {WannaTrue = false};
+            
+            var validations = vm.Validate(vm.WannaFalse, _wannaFalse);
             validations.Print(_output);
 
             Assert.Empty(validations);
