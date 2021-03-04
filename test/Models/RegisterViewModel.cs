@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace Wangkanai.Validation.Tests
+namespace Wangkanai.Validation.Models
 {
     public class RegisterViewModel
     {
@@ -14,7 +14,7 @@ namespace Wangkanai.Validation.Tests
         [RequireLowercase]
         [RequireUppercase]
         [RequireNonAlphanumeric]
-        [RequireUniqueChar]
+        [RequireUniqueChar(2)]
         public string Password { get; set; }
 
         [Required]
@@ -25,7 +25,23 @@ namespace Wangkanai.Validation.Tests
         [RequireFalse]
         public bool WannaFalse { get; set; }
 
+        [RequireUniqueChar(1)]
+        public string Unique1 { get; set; }
+
+        [RequireUniqueChar(2)]
+        public string Unique2 { get; set; }
+
+        [RequireUniqueChar(3)]
+        public string Unique3 { get; set; }
+        
+        [RequireUniqueChar(4)]
+        public string Unique4 { get; set; }
+
+        #region private
+
         public static PropertyInfo GetProperty(string name)
             => typeof(RegisterViewModel).GetProperty(name);
+
+        #endregion
     }
 }

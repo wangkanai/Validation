@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using Wangkanai.Validation.Extensions;
+using Wangkanai.Validation.Models;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -28,7 +30,7 @@ namespace Wangkanai.Validation.Tests
             var property    = RegisterViewModel.GetProperty(nameof(RegisterViewModel.WannaTrue));
             var validations = vm.Validate(vm.WannaTrue, property);
             validations.Print(_output);
-            
+
             Assert.Empty(validations);
         }
 
@@ -42,8 +44,9 @@ namespace Wangkanai.Validation.Tests
             var property    = RegisterViewModel.GetProperty(nameof(RegisterViewModel.WannaTrue));
             var validations = vm.Validate(vm.WannaTrue, property);
             validations.Print(_output);
-            
-            Assert.Collection(validations, v => v.ErrorMessage = "Checked is required");
+
+            Assert.Collection(validations, v =>
+                                  v.ErrorMessage = "Checked is required");
         }
 
         [Fact]
@@ -57,8 +60,9 @@ namespace Wangkanai.Validation.Tests
             var property    = RegisterViewModel.GetProperty(nameof(RegisterViewModel.WannaFalse));
             var validations = vm.Validate(vm.WannaFalse, property);
             validations.Print(_output);
-            
-            Assert.Collection(validations, v => v.ErrorMessage = "Unchecked is required");
+
+            Assert.Collection(validations, v => 
+                                  v.ErrorMessage = "Unchecked is required");
         }
 
         [Fact]
@@ -71,7 +75,7 @@ namespace Wangkanai.Validation.Tests
             var property    = RegisterViewModel.GetProperty(nameof(RegisterViewModel.WannaFalse));
             var validations = vm.Validate(vm.WannaFalse, property);
             validations.Print(_output);
-            
+
             Assert.Empty(validations);
         }
     }

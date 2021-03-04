@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Metadata;
 using Xunit.Abstractions;
 
-namespace Wangkanai.Validation.Tests
+namespace Wangkanai.Validation.Extensions
 {
     public static class ValidationExtensions
     {
