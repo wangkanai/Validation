@@ -2,7 +2,7 @@
 
 namespace Wangkanai.Validation.Models
 {
-    public class UniqueModel : BaseModel
+    public class UniqueModel : BaseModel<UniqueModel>
     {
         [RequireUniqueChar(1)]
         public string Unique1 { get; set; }

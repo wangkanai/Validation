@@ -12,10 +12,10 @@ namespace Wangkanai.Validation.Tests
     {
         private readonly ITestOutputHelper _output;
 
-        private readonly PropertyInfo _unique1 = BaseModel.GetProperty<UniqueModel>(nameof(UniqueModel.Unique1));
-        private readonly PropertyInfo _unique2 = BaseModel.GetProperty<UniqueModel>(nameof(UniqueModel.Unique2));
-        private readonly PropertyInfo _unique3 = BaseModel.GetProperty<UniqueModel>(nameof(UniqueModel.Unique3));
-        private readonly PropertyInfo _unique4 = BaseModel.GetProperty<UniqueModel>(nameof(UniqueModel.Unique4));
+        private readonly PropertyInfo _unique1 = UniqueModel.GetProperty(nameof(UniqueModel.Unique1));
+        private readonly PropertyInfo _unique2 = UniqueModel.GetProperty(nameof(UniqueModel.Unique2));
+        private readonly PropertyInfo _unique3 = UniqueModel.GetProperty(nameof(UniqueModel.Unique3));
+        private readonly PropertyInfo _unique4 = UniqueModel.GetProperty(nameof(UniqueModel.Unique4));
 
         public RequireUniqueTests(ITestOutputHelper output)
         {

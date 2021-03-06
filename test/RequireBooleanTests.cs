@@ -9,8 +9,8 @@ namespace Wangkanai.Validation.Tests
     public class RequireBooleanTests
     {
         private readonly ITestOutputHelper _output;
-        private readonly PropertyInfo      _wannaTrue  = BaseModel.GetProperty<BooleanModel>(nameof(BooleanModel.WannaTrue));
-        private readonly PropertyInfo      _wannaFalse = BaseModel.GetProperty<BooleanModel>(nameof(BooleanModel.WannaFalse));
+        private readonly PropertyInfo      _wannaTrue  = BooleanModel.GetProperty(nameof(BooleanModel.WannaTrue));
+        private readonly PropertyInfo      _wannaFalse = BooleanModel.GetProperty(nameof(BooleanModel.WannaFalse));
 
         public RequireBooleanTests(ITestOutputHelper output)
         {
@@ -44,7 +44,7 @@ namespace Wangkanai.Validation.Tests
         public void ExpectedFalse_ActualTrue()
         {
             var vm = new BooleanModel {WannaFalse = true};
-            
+
             var validations = vm.Validate(vm.WannaFalse, _wannaFalse);
             validations.Print(_output);
 
@@ -55,8 +55,8 @@ namespace Wangkanai.Validation.Tests
         [Fact]
         public void ExpectedFalse_ActualFalse()
         {
-            var vm          = new BooleanModel {WannaTrue = false};
-            
+            var vm = new BooleanModel {WannaTrue = false};
+
             var validations = vm.Validate(vm.WannaFalse, _wannaFalse);
             validations.Print(_output);
 

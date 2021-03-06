@@ -3,13 +3,14 @@ using Wangkanai.Validation.Extensions;
 using Wangkanai.Validation.Models;
 using Xunit;
 using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace Wangkanai.Validation.Tests
 {
     public class RequireLowercaseTests
     {
         private readonly ITestOutputHelper _output;
-        private readonly PropertyInfo      _password = BaseModel.GetProperty<LowercaseModel>(nameof(LowercaseModel.Password));
+        private readonly PropertyInfo      _password = LowercaseModel.GetProperty(nameof(LowercaseModel.Password));
 
         public RequireLowercaseTests(ITestOutputHelper output)
         {
@@ -31,7 +32,7 @@ namespace Wangkanai.Validation.Tests
         [Fact]
         public void Lowercase()
         {
-            var vm = new LowercaseModel{Password = "abc"};
+            var vm = new LowercaseModel {Password = "abc"};
 
             var validations = vm.Validate(vm.Password, _password);
             validations.Print(_output);

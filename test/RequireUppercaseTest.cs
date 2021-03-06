@@ -6,47 +6,47 @@ using Xunit.Abstractions;
 
 namespace Wangkanai.Validation.Tests
 {
-    public class RequireDigitTests
+    public class RequireUppercaseTest
     {
         private readonly ITestOutputHelper _output;
-        private readonly PropertyInfo      _password = DigitModel.GetProperty(nameof(DigitModel.Password));
+        private readonly PropertyInfo      _password = BaseModel.GetProperty<UppercaseModel>(nameof(UppercaseModel.Password));
 
-        public RequireDigitTests(ITestOutputHelper output)
+        public RequireUppercaseTest(ITestOutputHelper output)
         {
             _output = output;
         }
 
         [Fact]
-        public void Mix()
+        public void Uppercase()
         {
-            var vm = new DigitModel {Password = "pass1234"};
+            var vm = new UppercaseModel() {Password = "ABC"};
 
             var validations = vm.Validate(vm.Password, _password);
             validations.Print(_output);
-            
+
             Assert.Empty(validations);
         }
 
         [Fact]
-        public void Alphabet()
+        public void Lowercase()
         {
-            var vm = new DigitModel {Password = "password"};
+            var vm = new UppercaseModel {Password = "abc"};
 
             var validations = vm.Validate(vm.Password, _password);
             validations.Print(_output);
             
-            Assert.Collection(validations, v=>v.ErrorMessage ="Digit is required");
+            Assert.Collection(validations, v =>
+                                  v.ErrorMessage = "Uppercase is required");
         }
-        
+
         [Fact]
-        public void Numeric()
+        public void Mix()
         {
-            var vm = new DigitModel {Password = "123456"};
+            var vm = new UppercaseModel {Password = "Abc"};
 
             var validations = vm.Validate(vm.Password, _password);
             validations.Print(_output);
-            
-            //Assert.Collection(validations, v=>v.ErrorMessage = "Digit is required");
+
             Assert.Empty(validations);
         }
     }

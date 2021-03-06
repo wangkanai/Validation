@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Wangkanai.Validation.Models
 {
-    public class BooleanModel : BaseModel
+    public class BooleanModel : BaseModel<BaseModel>
     {
         [Required]
         [RequireTrue]
