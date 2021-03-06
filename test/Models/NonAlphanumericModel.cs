@@ -2,9 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Wangkanai.Validation.Models
 {
-    public class UppercaseModel : BaseModel<UppercaseModel>
+    public class NonAlphanumericModel : BaseModel<NonAlphanumericModel>, IPasswordModel
     {
-        [RequireUppercase]
+        [Required]
+        [RequireNonAlphanumeric]
         public string Password { get; set; }
     }
 }
