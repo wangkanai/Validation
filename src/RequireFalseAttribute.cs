@@ -7,14 +7,12 @@
         {
         }
 
-        public override bool IsValid(object value)
-        {
-            if (value == null)
-                return true;
-            if (value is bool actual)
-                return actual == false;
-
-            return false;
-        }
+        public override bool IsValid(object value) =>
+            value switch
+            {
+                null        => true,
+                bool actual => actual == false,
+                _           => false
+            };
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Extensions;
 using System.Linq;
 
 namespace System.ComponentModel.DataAnnotations
@@ -22,9 +23,10 @@ namespace System.ComponentModel.DataAnnotations
                 _             => false
             };
 
-        private Dictionary<char, int> Unique(string value)
+        private static Dictionary<char, int> Unique(string value)
         {
-            var array = new byte[256]; // or longer for unicode
+            var range = value.IsUnicode() ? short.MaxValue : byte.MaxValue;
+            var array = new byte[range]; // or longer for unicode
             foreach (var c in value)
                 array[c]++;
 
