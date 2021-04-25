@@ -7,15 +7,28 @@
         
         <RepositoryType>git</RepositoryType>
         <RepositoryUrl>git://github.com/wangkanai/validation</RepositoryUrl>
-        
-        <PackageProjectUrl>https://github.com/wangkanai/Validation</PackageProjectUrl>
-        <PackageLicense>https://github.com/wangkanai/Validation/blob/main/LICENSE</PackageLicense>
+        <PackageProjectUrl>https://github.com/wangkanai/validation</PackageProjectUrl>
+        <PackageLicense>https://github.com/wangkanai/validation/blob/main/LICENSE</PackageLicense>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        
-        <PackageIcon>wangkanai-logo.png</PackageIcon>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="..\asset\wangkanai-logo.png" Pack="true" PackagePath="\" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+    </ItemGroup>
+
+    <PropertyGroup Condition="'$(Name)'=='Wangkanai.Detection'">
+        <PackageIcon>wangkanai-logo.png</PackageIcon>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(Name)'=='Wangkanai.Detection'">
+        <None Include="..\asset\wangkanai-logo.png" Pack="true" PackagePath="\"/>
     </ItemGroup>
 </Project>
