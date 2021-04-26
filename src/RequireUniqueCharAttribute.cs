@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Extensions;
-using System.Linq;
+using Wangkanai.Runtime.Extensions;
 
 namespace System.ComponentModel.DataAnnotations
 {
